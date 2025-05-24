@@ -21,4 +21,4 @@ app.include_router(tasks.router, prefix=f"{settings.API_V1_STR}/tasks", tags=["t
 
 @app.get("/")
 def root():
-    return {"message": "Welcome to FASTAPI."}
+    return {"message": "Welcome to FASTAPI.."}
