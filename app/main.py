@@ -2,13 +2,6 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app.core.config import settings
 from app.api.v1.endpoints import auth, tasks
-from app.db.session import engine
-from app.models import user, task, template
-
-# Create database tables
-user.Base.metadata.create_all(bind=engine)
-task.Base.metadata.create_all(bind=engine)
-template.Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
 
@@ -23,9 +16,9 @@ if settings.BACKEND_CORS_ORIGINS:
     )
 
 # Include routers
-app.include_router(auth.router, prefix="/auth", tags=["auth"])
-app.include_router(tasks.router, prefix="/tasks", tags=["tasks"])
+app.include_router(auth.router, prefix=f"{settings.API_V1_STR}/auth", tags=["auth"])
+app.include_router(tasks.router, prefix=f"{settings.API_V1_STR}/tasks", tags=["tasks"])
 
 @app.get("/")
 def root():
-    return {"message": "Welcome to FASTAPI"}
+    return {"message": "Welcome to FASTAPI."}
